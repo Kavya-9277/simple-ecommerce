@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple E-commerce</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f8f9fa; color: #333; text-align: center; }
+        header { background: linear-gradient(90deg, #ff9800, #f44336); color: white; padding: 20px; }
+        .container { max-width: 800px; margin: auto; padding: 20px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 10px; margin-top: 20px; }
+        .product { display: flex; justify-content: space-between; align-items: center; padding: 10px; margin: 10px 0; background: #e3f2fd; border-radius: 5px; }
+        button { padding: 8px 12px; background: #007BFF; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        button:hover { background: #0056b3; }
+        .cart { margin-top: 20px; padding: 10px; background: #dff0d8; border-radius: 5px; }
+        .order-btn { margin-top: 10px; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        .order-btn:hover { background: #218838; }
+        footer { background: #333; color: white; text-align: center; padding: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Simple E-commerce</h1>
+        <p>Buy your favorite products!</p>
+    </header>
+	<div class="container">
+        <h2>Products</h2>
+        <div id="products">
+            <div class="product"><span>Wireless Headphones - $50</span><button onclick="addToCart('Wireless Headphones', 50)">Add to Cart</button></div>
+            <div class="product"><span>Smart Watch - $70</span><button onclick="addToCart('Smart Watch', 70)">Add to Cart</button></div>
+            <div class="product"><span>Gaming Mouse - $40</span><button onclick="addToCart('Gaming Mouse', 40)">Add to Cart</button></div>
+            <div class="product"><span>Mechanical Keyboard - $80</span><button onclick="addToCart('Mechanical Keyboard', 80)">Add to Cart</button></div>
+            <div class="product"><span>Bluetooth Speaker - $60</span><button onclick="addToCart('Bluetooth Speaker', 60)">Add to Cart</button></div>
+        </div>
+		<h2>Shopping Cart</h2>
+        <div class="cart">
+            <ul id="cart-list"></ul>
+            <p><strong>Total: $<span id="total-price">0</span></strong></p>
+            <button class="order-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
+	<footer>
+        <p>&copy; 2025 Simple E-commerce | All Rights Reserved</p>
+    </footer>
+	<script>
+        let cart = [];
+        let totalPrice = 0;
+
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            totalPrice += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            let cartList = document.getElementById("cart-list");
+            cartList.innerHTML = "";
+            cart.forEach(item => {
+                let li = document.createElement("li");
+                li.textContent = `${item.product} - $${item.price}`;
+                cartList.appendChild(li);
+            });
+            document.getElementById("total-price").innerText = totalPrice;
+        }
+        function placeOrder() {
+            if (cart.length === 0) {
+                alert("Your cart is empty! Add some products before placing an order.");
+            } else {
+                alert(`Order placed successfully!\nTotal Amount: $${totalPrice}`);
+                cart = [];
+                totalPrice = 0;
+                updateCart();
+            }
+        }
+    </script>
+</body>
+</html>
